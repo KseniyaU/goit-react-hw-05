@@ -4,6 +4,8 @@ import { Route, Routes} from 'react-router-dom'
 import css from '../App/App.module.css'
 //npm install clsx
 import { Navbar } from '../Navbar/Navbar'
+import HomePage from '../../pages/HomePage/HomePage.jsx'
+import MoviesPage from '../../pages/MoviesPage/MoviesPage.jsx'
 
 
 
@@ -14,8 +16,8 @@ export function App() {
     <div>
       <Navbar/>
       <Routes>
-        <Route path='/' element={<div>Home</div>} />
-        <Route path='/movies' element={<div>Movies</div>} />
+        <Route path='/' element={<HomePage />} />
+        <Route path='/movies' element={<MoviesPage />} />
         <Route path='*' element={ <div>Error</div>} />
       </Routes>
     </div>
