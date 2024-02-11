@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { ErrorMessage } from '../../components/ ErrorMessage/ ErrorMessage';
 import { Loader } from '../../components/Loader/Loader';
 import { getMovies } from '../../apiMovies';
-import { Link } from 'react-router-dom';
+import { HomePageList } from '../../components/HomePageList/HomePageList';
+// import { Link } from 'react-router-dom';
 
 export default function HomePage() {
     const [movies, setMovies] = useState([]);
@@ -21,7 +22,7 @@ export default function HomePage() {
                 });
                 setLoading(true)
                 setError(false)
-                console.log(fetchedMovies);
+                // console.log(fetchedMovies);
                 setMovies(fetchedMovies)
             } catch (error) {
                 if (error.code !== 'ERR_CANCELED') {
@@ -43,9 +44,7 @@ export default function HomePage() {
         {loading && <Loader />}
         <h2>Trending today</h2>
         {movies.length > 0 && <ul>
-            {movies.map(movie => <li key={movie.id}>
-                <Link to={ `/movies/${movie.id}`}>{movie.title}</Link> 
- </li>)}
+            {movies.map(movie => <HomePageList movie={ movie} />)}
         </ul>}
     </div>;
     

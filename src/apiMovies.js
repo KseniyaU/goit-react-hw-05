@@ -14,17 +14,49 @@ export const getMovies = async ({ abortController}) => {
     return response.data.results
 }
 
-export const getMovieById = async (movieId) => {
+export const getMovieById = async ({ movieId, abortController }) => {
     const url = `https://api.themoviedb.org/3/movie/${movieId}`;
 
     const options = {
-        
+        signal: abortController.signal,
         params: {
             api_key: `${keyAPI}`,
             language: 'en-US',
         }      
     }
     const response = await axios.get(url, options)
-    console.log(response);
-    return response.data.results
+    // console.log(response.data);
+    return response.data;
+}
+
+export const getMovieCasts = async ({ movieId, abortController }) => {
+    const url = `https://api.themoviedb.org/3/movie/${movieId}//credits`;
+
+    const options = {
+        signal: abortController.signal,
+        params: {
+            api_key: `${keyAPI}`,
+            language: 'en-US',
+        }      
+    }
+    const response = await axios.get(url, options)
+    console.log(response.data.cast);
+    return response.data.cast;
+    
+}
+
+export const getMovieReviews = async ({ movieId, abortController }) => {
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/reviews`;
+
+    const options = {
+        signal: abortController.signal,
+        params: {
+            api_key: `${keyAPI}`,
+            language: 'en-US',
+        }      
+    }
+    const response = await axios.get(url, options)
+    console.log(response.data.results);
+    return response.data.results;
+    
 }
