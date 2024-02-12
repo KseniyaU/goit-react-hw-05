@@ -39,12 +39,12 @@ export default function HomePage() {
             controller.abort();
         };
     }, [])
-    return <div>Це наш HomePage
+    return <div>
         {error && <ErrorMessage />}
         {loading && <Loader />}
         <h2>Trending today</h2>
         {movies.length > 0 && <ul>
-            {movies.map(movie => <HomePageList movie={ movie} />)}
+            {movies.map(movie => <HomePageList key={movie.id} movie={ movie} />)}
         </ul>}
     </div>;
     

@@ -55,8 +55,13 @@ export const getMovieReviews = async ({ movieId, abortController }) => {
             language: 'en-US',
         }      
     }
-    const response = await axios.get(url, options)
-    console.log(response.data.results);
-    return response.data.results;
+
+        const response = await axios.get(url, options)
+        console.log(response.data); 
+        return response.data;
+   
+    
+    
+    
     
 }

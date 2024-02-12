@@ -43,7 +43,7 @@ export default function MovieDetailsPage() {
     }, [movieId])
   
 
-    return <div>це наш MovieDetailsPage
+    return <div>
         {error && <ErrorMessage />}
         { loading && <Loader/>}
         <button><Link to='/'><BiArrowBack />Go back</Link></button>

@@ -38,7 +38,7 @@ export const MovieCast = () => {
     }, [movieId])
     return (
         <>
-        <div>Це наш cast</div>
+        
         {error && <ErrorMessage />}
         {loading && <Loader />}
         {casts &&

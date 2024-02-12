@@ -6,7 +6,7 @@ import { getMovieReviews } from '../../apiMovies'
 
 export const MovieReviews = () => {
     const { movieId}  = useParams();
-    const [reviews, setReviews] = useState(null)
+    const [reviews, setReviews] = useState([])
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false);
     
@@ -24,7 +24,7 @@ export const MovieReviews = () => {
             } catch(error) {
             if (error.code !== 'ERR_CANCELED') {
                     setError(true)
-                    console.log(error);
+                    
                 }
             } finally {
                 setLoading(false)
@@ -37,13 +37,20 @@ export const MovieReviews = () => {
         }
     }, [movieId])
     return <>
-        <div>це наш reviews</div>
+       
         {error && <ErrorMessage />}
         {loading && <Loader />}
-        {reviews &&
-            <div>
-                {<p>Author:{ reviews.author}</p>
-                    }
-            </div>}
+        {reviews && reviews.results && reviews.results.length > 0 ? (
+            <ul>
+                {reviews.results.map(review => ( 
+                    <li key={review.id}>
+                        <h3>{review.author}</h3>
+                        <p>{review.content}</p>
+                    </li>
+                ))}
+            </ul>
+        ) : (
+            <p>No information about reviews 😭</p>
+        )}
     </> 
 }
