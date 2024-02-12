@@ -59,9 +59,17 @@ export const getMovieReviews = async ({ movieId, abortController }) => {
         const response = await axios.get(url, options)
         console.log(response.data); 
         return response.data;
-   
-    
-    
-    
-    
+}
+
+export const getMovieSearch = async ({query, abortController}) => {
+    const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
+
+    const options = {
+        signal: abortController.signal,
+        params: {
+        api_key: `${keyAPI}`,
+    },
+  };
+    const response = await axios.get(url, options);
+    return response.data;
 }
