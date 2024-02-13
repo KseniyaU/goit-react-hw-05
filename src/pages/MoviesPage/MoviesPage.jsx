@@ -56,7 +56,7 @@ export default function MoviesPage() {
     
  const handleSumbit = (even) => {
      even.preventDefault();
-      // console.log(even.target.elements.query.value);
+      // console.log(even.target);
     if (even.target.elements.query.value.trim() === "") {
       toast("Empty string!", {
         icon: "🧐",
@@ -78,10 +78,9 @@ export default function MoviesPage() {
     return(
         <>
         {error && <ErrorMessage />}
-       
-            {<MoviesPageFilter onSubmit={handleSumbit} value={filter} onChange={ changeFilter} />}
-            {movieSearch && <MoviePageSearch movieSearch={ movieSearch} />}
-        <MoviePageSearch />
+        {<MoviesPageFilter onSubmit={handleSumbit} value={filter} onChange={ changeFilter} />}
+        {movieSearch && <MoviePageSearch movieSearch={ movieSearch} />}
+        {/* <MoviePageSearch /> */}
          {loading && <Loader />}
         </>)
 }

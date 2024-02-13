@@ -7,7 +7,8 @@ import { getMovieById} from '../../apiMovies'
 import { ErrorMessage } from "../../components/ ErrorMessage/ ErrorMessage";
 import { Loader } from "../../components/Loader/Loader";
 import { MovieDetailsList } from "../../components/MovieDetailsList/MovieDetailsList";
-import {  AdditInform} from '../../components/AdditInform/AdditInform'
+import { AdditInform } from '../../components/AdditInform/AdditInform'
+import css from '../MovieDetailsPage/MovieDetailsPage.module.css'
 
 export default function MovieDetailsPage() {
     const location = useLocation();
@@ -50,7 +51,7 @@ export default function MovieDetailsPage() {
     return <div>
         {error && <ErrorMessage />}
         { loading && <Loader/>}
-        <button><Link to={location.state ?? '/'}><BiArrowBack />Go back</Link></button>
+        <button className={ css.btnGoBack}><Link to={location.state ?? '/'}><BiArrowBack />Go back</Link></button>
         {movie && <MovieDetailsList movie={movie} />}
         < AdditInform/>
     </div>

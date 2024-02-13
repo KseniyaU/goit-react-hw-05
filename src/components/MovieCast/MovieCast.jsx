@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { ErrorMessage } from "../ ErrorMessage/ ErrorMessage";
 import { Loader } from "../Loader/Loader";
-import { getMovieCasts} from '../../apiMovies'
+import { getMovieCasts } from '../../apiMovies'
+import css from '../MovieCast/MovieCast.module.css'
 
 export const MovieCast = () => {
     const { movieId}  = useParams();
@@ -42,9 +43,9 @@ export const MovieCast = () => {
         {error && <ErrorMessage />}
         {loading && <Loader />}
         {casts &&
-            <ul>{casts.map(cast =>
-                <li key={cast.id}>
-                   <img src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`} alt={cast.character} />
+            <ul className={ css.castList}>{casts.map(cast =>
+                <li key={cast.id} className={ css.castListItem} >
+                    <img className={ css.castImg} src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`} alt={cast.character} />
                     <p>{ cast.name}</p>
                     <p>Character: {cast.character}</p>
                 </li>)}
