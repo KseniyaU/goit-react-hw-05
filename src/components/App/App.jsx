@@ -13,6 +13,7 @@ import { MovieReviews} from '../MovieReviews/MovieReviews.jsx'
 
 //45:27
 //1:01
+//33:01
 
 
 export function App() {

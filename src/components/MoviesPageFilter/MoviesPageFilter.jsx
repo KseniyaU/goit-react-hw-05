@@ -8,7 +8,7 @@ export const MoviesPageFilter = ({onSubmit, value, onChange }) => {
           type="text"
           name="query"
           placeholder="Search movies"
-          autoComplete="on"
+          autoComplete="off"
           autoFocus
                 />
                 <button type="submit"  >

@@ -15,6 +15,7 @@ export default function MoviesPage() {
     const [query, setQuery] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+  
     const [params, setParams] = useSearchParams();
     const filter = params.get('filter') ?? '';
 
@@ -22,24 +23,21 @@ export default function MoviesPage() {
         // console.log(newFiltetr);
         params.set('filter', newFiltetr)
         setParams(params);
-         history.push({ search: params.toString() });
     }
        
-const onSearch = async (newQuery) => {
-    setQuery(`/${newQuery}`);
-    setMovieSearch([]);
-};
+// const onSearch = async (newQuery) => {
+//     setQuery(`/${newQuery}`);
+//     setMovieSearch([]);
+// };
     useEffect(() => {
         const controller = new AbortController();
-    if (query === "") {
-      return;
-    }
+
     async function fetchData() {
       try {
         setLoading(true);
         setError(false);
           const response = await getMovieSearch({
-            query: query,
+            query: filter,
             abortController: controller,
           })
         // console.log(response);
@@ -52,15 +50,13 @@ const onSearch = async (newQuery) => {
     }
     fetchData();
 
-    }, [query]);
-  // console.log(movieSearch.results.filter(res => res.original_title));
-//     const filteredMovies = movieSearch.filter(movie =>
-//     movie.results.title.toLowerCase().include(filter.toLocaleLowerCase()))
-// console.log(filteredMovies);
+    }, [filter]);
+  
+
     
  const handleSumbit = (even) => {
      even.preventDefault();
-      console.log(even.target.elements.query.value);
+      // console.log(even.target.elements.query.value);
     if (even.target.elements.query.value.trim() === "") {
       toast("Empty string!", {
         icon: "🧐",
@@ -74,98 +70,19 @@ const onSearch = async (newQuery) => {
       return;
     }
    
-    onSearch(even.target.elements.query.value);
-    even.target.reset();
- };
+    // onSearch(even.target.elements.query.value);
+   even.target.reset();
+  };
+  // console.log(movieSearch.results.map(res => res));
     
     return(
         <>
         {error && <ErrorMessage />}
-        {loading && <Loader />}
+       
             {<MoviesPageFilter onSubmit={handleSumbit} value={filter} onChange={ changeFilter} />}
             {movieSearch && <MoviePageSearch movieSearch={ movieSearch} />}
-            <MoviePageSearch/>
+        <MoviePageSearch />
+         {loading && <Loader />}
         </>)
 }
 
-// import { useEffect, useState } from 'react';
-// import { Loader } from '../../components/Loader/Loader';
-// import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
-// import { getMovieSearch } from '../../apiMovies';
-// import { MoviePageSearch } from '../../components/MoviePageSearch/MoviePageSearch';
-// import { useSearchParams, useHistory } from 'react-router-dom';
-// import { MoviesPageFilter } from '../../components/MoviesPageFilter/MoviesPageFilter';
-
-// export default function MoviesPage() {
-//     const [movieSearch, setMovieSearch] = useState([]);
-//     const [query, setQuery] = useState("");
-//     const [loading, setLoading] = useState(false);
-//     const [error, setError] = useState(false);
-//     const [params, setParams] = useSearchParams();
-//     const filter = params.get('filter') ?? '';
-//     const history = useHistory();
-
-//     const changeFilter = newFilter => {
-//         params.set('filter', newFilter);
-//         setParams(params);
-//         history.push({ search: params.toString() });
-//     }
-
-//     const onSearch = async (newQuery) => {
-//         setQuery(newQuery);
-//         setMovieSearch([]);
-//     };
-
-//     useEffect(() => {
-//         const controller = new AbortController();
-//         const searchQuery = params.get('query');
-//         if (searchQuery) {
-//             onSearch(searchQuery);
-//         }
-//         return () => controller.abort();
-//     }, []);
-
-//     useEffect(() => {
-//         const controller = new AbortController();
-//         if (!query) {
-//             return;
-//         }
-//         async function fetchData() {
-//             try {
-//                 setLoading(true);
-//                 setError(false);
-//                 const response = await getMovieSearch({
-//                     query: query,
-//                     abortController: controller,
-//                 });
-//                 setMovieSearch(response);
-//             } catch (error) {
-//                 setError(true);
-//             } finally {
-//                 setLoading(false);
-//             }
-//         }
-//         fetchData();
-//         return () => controller.abort();
-//     }, [query]);
-
-//     const handleSubmit = (event) => {
-//         event.preventDefault();
-//         const newQuery = event.target.elements.query.value.trim();
-//         if (!newQuery) {
-//             toast.error("Empty string!");
-//             return;
-//         }
-//         onSearch(newQuery);
-//         history.push({ search: `?filter=${filter}&query=${newQuery}` });
-//     };
-
-//     return (
-//         <>
-//             {error && <ErrorMessage />}
-//             {loading && <Loader />}
-//             <MoviesPageFilter onSubmit={handleSubmit} value={filter} onChange={changeFilter} />
-//             {movieSearch && <MoviePageSearch movieSearch={movieSearch} />}
-//         </>
-//     );
-// }
